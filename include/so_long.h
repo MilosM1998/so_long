@@ -31,11 +31,18 @@ typedef struct s_game
 	void	*mlx;
 	void	*win;
 	void	*wall_img;
-	void	*player_set[3];
-	int		curr_player;
+	void	*player_default;
+	void	*player_right_standing;
+	void	*player_left_standing;
+	void	*player_left;
+	void	*player_right;
+	void	*player_up;
 	void	*exit_img;
 	void	*collect_img;
 	void	*floor_img;
+	int		 beers;
+	int		 total_beers;
+	int		 level;
 }			t_game;
 
 t_map		*init_map(void);
@@ -50,4 +57,7 @@ void		exit_error(char *msg);
 void		print_msg(int msg);
 int			render_map(t_game *game);
 void		move_player(t_game *game, int dx, int dy);
+void	set_imgs(t_game *game);
+void	render_text(t_game *game);
+
 #endif

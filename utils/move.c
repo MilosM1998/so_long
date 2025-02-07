@@ -47,10 +47,10 @@ void	move_player(t_game *game, int dx, int dy)
 	ft_putendl_fd(ft_itoa(game->moves), 1);
 	game->moves++;
 	if (game->map->map[new_y][new_x] == 'C')
-		game->map->c_count--;
+		game->beers++;
 	if (game->map->map[new_y][new_x] == 'E')
 	{
-		if (game->map->c_count == 0)
+		if (game->beers == game->map->c_count)
 		{
 			print_msg(1);
 			mlx_destroy_window(game->mlx, game->win);
@@ -59,5 +59,4 @@ void	move_player(t_game *game, int dx, int dy)
 		return ;
 	}
 	refresh_positions(game, new_y, new_x);
-	game->curr_player = (game->curr_player + 1) % 3;
 }
