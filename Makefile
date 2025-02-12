@@ -1,7 +1,9 @@
 NAME = so_long
 CC = cc
-CFLAGS = -Wall -Wextra -Werror
-SRCS = ./src/so_long.c ./utils/map_utils.c ./utils/take_map.c ./utils/init_game.c ./utils/move.c
+CFLAGS = -Wall -Wextra -Werror 
+SRCS = ./src/so_long.c ./utils/map_utils.c ./utils/take_map.c ./utils/init_game.c \
+./utils/move.c ./utils/exit_game.c ./utils/key_hooks.c ./utils/load_next_map.c \
+./utils/set_tiles.c
 OBJS = $(SRCS:.c=.o)
 RM = rm -f
 

@@ -1,86 +1,49 @@
 #include "../include/so_long.h"
 
-static int	ft_exit(t_game *game)
+static int	check_map_file(char *av)
 {
-	mlx_destroy_window(game->mlx, game->win);
-	free(game->map);
-	print_msg(2);
-	exit(0);
-	return 0;
-}
+	char	*file_ext;
+	int		fd;
 
-int	render_map(t_game *game)
-{
-	int	i;
-	int	j;
-
-	i = 0;
-	while (i < game->map->h_map)
+	file_ext = ft_strrchr(av, '.');
+	if (av[0] != '.' || av[1] != '/')
 	{
-		j = 0;
-		while (j < game->map->w_map)
-		{
-			if (game->map->map[i][j] == '1')
-				mlx_put_image_to_window(game->mlx, game->win, game->wall_img, j
-					* 50, i * 50);
-			else if (game->map->map[i][j] == 'P')
-				mlx_put_image_to_window(game->mlx, game->win,
-					game->player_default, j * 50, i * 50);
-			else if (game->map->map[i][j] == 'E')
-				mlx_put_image_to_window(game->mlx, game->win, game->exit_img, j
-					* 50, i * 50);
-			else if (game->map->map[i][j] == 'C')
-				mlx_put_image_to_window(game->mlx, game->win, game->collect_img,
-					j * 50, i * 50);
-			else if (game->map->map[i][j] == '0')
-				mlx_put_image_to_window(game->mlx, game->win, game->floor_img, j
-					* 50, i * 50);
-			j++;
-		}
-		i++;
+		ft_putendl_fd("Error:\nMap file must start with './'. ", 2);
+		return (1);
 	}
-	render_text(game);
-	return (0);
-}
-#include <stdio.h>
-int	key_hook(int keycode, t_game *game)
-{
-	if (keycode == 65307)
-		ft_exit(game);
-	if (keycode == W)
+	if (!file_ext || ft_strncmp(file_ext, ".ber", 4) != 0)
 	{
-		game->player_default = game->player_up;
-		move_player(game, 0, -1);
+		ft_putendl_fd("Error\nMap must be type '.ber'.", 2);
+		return (1);
 	}
-	if (keycode == A)
+	fd = open(av, O_RDONLY);
+	if (fd < 0)
 	{
-		game->player_default = game->player_left;
-		move_player(game, -1, 0);
+		ft_putendl_fd("Error:\nFile does not exist or cannot be opened.", 2);
+		return (1);
 	}
-	if (keycode == S)
-	{
-		game->player_default = game->player_right_standing;
-		move_player(game, 0, 1);
-	}
-	if (keycode == D)
-	{
-		game->player_default = game->player_right;
-		move_player(game, 1, 0);
-	}
+	close(fd);
 	return (0);
 }
 
 int	main(int ac, char **av)
 {
-	t_game *game;
+	t_game	*game;
+
 	if (ac != 2)
-		exit_error("Error: Usage should be: ./so_long <map.ber>");
+	{
+		ft_putendl_fd("Error:\nUsage should be: ./so_long <map.ber>", 2);
+		return (1);
+	}
+	if (check_map_file(av[1]))
+		return (1);
 	game = init_game();
-	game->mlx = mlx_init();
-	if (!game->mlx)
-		exit_error("Error: Failed to initialize mlx");
-	game->map = take_map(av[1]);
-	game->win = mlx_new_window(game->mlx, game->map->w_map * 50,//
+	if (!game)
+		return (1);
+	game->map = take_map(av[1], game);
+	if (!game->map)
+		exit_error(game, "Map cannot be readen.");
+	game->win = mlx_new_window(game->mlx, game->map->w_map * 50,
 			game->map->h_map * 50, "Take your beer");
 	set_imgs(game);
 	render_map(game);
