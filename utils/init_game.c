@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   init_game.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mmilicev <mmilicev@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/03/22 17:35:58 by mmilicev          #+#    #+#             */
+/*   Updated: 2025/03/22 18:20:03 by mmilicev         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../include/so_long.h"
 
 void	free_game(t_game *game)
@@ -105,5 +117,6 @@ t_game	*init_game(void)
 	game->beers = 0;
 	game->total_beers = 0;
 	game->level = 1;
+	game->fd = 0;
 	return (game);
 }

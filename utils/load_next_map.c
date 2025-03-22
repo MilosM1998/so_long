@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   load_next_map.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mmilicev <mmilicev@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/03/22 17:37:36 by mmilicev          #+#    #+#             */
+/*   Updated: 2025/03/22 17:38:23 by mmilicev         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../include/so_long.h"
 
 static char	*prepare_map(t_game *game)
@@ -29,6 +41,7 @@ static void	load_map(t_game *game, char *full_map)
 		exit_error(game, "Error while loading next map.");
 	free(full_map);
 }
+
 static void	set_level(t_game *game)
 {
 	set_imgs(game);

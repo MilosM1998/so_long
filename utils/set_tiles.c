@@ -1,5 +1,16 @@
-#include "../include/so_long.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   set_tiles.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mmilicev <mmilicev@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/03/22 17:40:45 by mmilicev          #+#    #+#             */
+/*   Updated: 2025/03/22 19:18:06 by mmilicev         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
+#include "../include/so_long.h"
 
 static void	set_player_imgs(t_game *game, int img_w, int img_h)
 {
@@ -18,20 +29,21 @@ static void	set_player_imgs(t_game *game, int img_w, int img_h)
 	}
 }
 
-static void	set_images(t_game *game, char *collect, char *exit, char *wall,
-		char *floor)
+static void	set_images(t_game *game)
 {
-	int	img_w = 0, img_h;
+	int	img_w;
+	int	img_h;
 
-	img_w = 0, img_h = 0;
-	game->collect_img = mlx_xpm_file_to_image(game->mlx, collect, &img_w,
+	img_w = 0;
+	img_h = 0;
+	game->imgs->collect_img = mlx_xpm_file_to_image(game->mlx, game->imgs->collect_img, &img_w,
 			&img_h);
-	game->exit_img = mlx_xpm_file_to_image(game->mlx, exit, &img_w, &img_h);
-	game->wall_img = mlx_xpm_file_to_image(game->mlx, wall, &img_w, &img_h);
-	game->floor_img = mlx_xpm_file_to_image(game->mlx, floor, &img_w, &img_h);
+	game->imgs->exit_img = mlx_xpm_file_to_image(game->mlx, game->imgs->exit_img, &img_w, &img_h);
+	game->imgs->wall_img = mlx_xpm_file_to_image(game->mlx, game->imgs->wall_img, &img_w, &img_h);
+	game->imgs->floor_img = mlx_xpm_file_to_image(game->mlx, game->imgs->floor_img, &img_w, &img_h);
 	set_player_imgs(game, img_w, img_h);
-	if (!game->collect_img || !game->exit_img || !game->wall_img
-		|| !game->floor_img)
+	if (!game->imgs->collect_img || !game->imgs->exit_img || !game->imgs->wall_img
+		|| !game->imgs->floor_img)
 	{
 		exit_error(game, "Failed to load textures.");
 	}

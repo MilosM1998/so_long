@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   so_long.h                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mmilicev <mmilicev@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/03/22 18:56:32 by mmilicev          #+#    #+#             */
+/*   Updated: 2025/03/22 19:18:04 by mmilicev         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef SO_LONG_H
 # define SO_LONG_H
 
@@ -35,22 +47,28 @@ typedef struct s_game
 {
 	t_map	*map;
 	int		moves;
+	int		fd;
 	void	*mlx;
 	void	*win;
-	void	*wall_img;
+	int		beers;
+	int		total_beers;
+	int		level;
+	int		player_direction;
 	void	*player_default;
 	void	*player_right_standing;
 	void	*player_left;
 	void	*player_right;
 	void	*player_up;
+	t_imgs	*imgs;
+}			t_game;
+
+typedef struct s_imgs
+{
 	void	*exit_img;
 	void	*collect_img;
 	void	*floor_img;
-	int		beers;
-	int		total_beers;
-	int		level;
-	int		player_direction;
-}			t_game;
+	void 	*wall_img;
+}			t_imgs;
 
 t_map		*init_map(void);
 void		free_game(t_game *game);

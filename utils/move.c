@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   move.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mmilicev <mmilicev@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/03/22 17:39:07 by mmilicev          #+#    #+#             */
+/*   Updated: 2025/03/22 19:04:37 by mmilicev         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../include/so_long.h"
 
 static void	refresh_positions(t_game *game, int new_y, int new_x)
@@ -8,6 +20,7 @@ static void	refresh_positions(t_game *game, int new_y, int new_x)
 	game->map->map[new_y][new_x] = 'P';
 	render_map(game);
 }
+
 void	*get_player_img(t_game *game)
 {
 	if (game->player_direction == RIGHT)
@@ -21,23 +34,29 @@ void	*get_player_img(t_game *game)
 	return (game->player_right_standing);
 }
 
+static void	write_moves(t_game *game)
+{
+	char	*moves;
+
+	game->moves++;
+	moves = ft_itoa(game->moves);
+	if (!moves)
+		exit_error(game, "Itoa failed.");
+	ft_putstr_fd("Moves: ", 1);
+	ft_putendl_fd(moves, 1);
+	free(moves);
+}
+
 void	move_player(t_game *game, int dx, int dy)
 {
-	int		new_x;
-	int		new_y;
-	char	*moves;
+	int	new_x;
+	int	new_y;
 
 	new_x = game->map->p_x + dx;
 	new_y = game->map->p_y + dy;
 	if (game->map->map[new_y][new_x] == '1')
 		return ;
-	moves = ft_itoa(game->moves);
-	if(!moves)
-		exit_error(game, "Itoa failed.");
-	ft_putstr_fd("Moves: ", 1);
-	ft_putendl_fd(moves, 1);
-	game->moves++;
-	free(moves);
+	write_moves(game);
 	if (game->map->map[new_y][new_x] == 'C')
 		game->beers++;
 	if (game->map->map[new_y][new_x] == 'E')

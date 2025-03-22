@@ -1,26 +1,28 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   take_map.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mmilicev <mmilicev@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/03/22 17:41:40 by mmilicev          #+#    #+#             */
+/*   Updated: 2025/03/22 17:41:43 by mmilicev         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../include/so_long.h"
 
-/* void	free_map(t_map *map)
+void	free_map(t_map *map)
 {
 	int	i;
 
 	i = 0;
-	if (!map)
-		return ;
-	if (map->map)
+	if (map)
 	{
-		while (map->map[i])
-			free(map->map[i++]);
-		free(map->map);
-	}
-	free(map);
-} */
-void	free_map(t_map *map)
-{
-	int i = 0;
-	if (map) {
-		if (map->map) {
-			while (map->map[i]) {
+		if (map->map)
+		{
+			while (map->map[i])
+			{
 				free(map->map[i]);
 				i++;
 			}
@@ -29,7 +31,6 @@ void	free_map(t_map *map)
 		free(map);
 	}
 }
-
 
 void	map_error(t_map *map, t_game *game, char *msg)
 {
@@ -41,7 +42,6 @@ void	map_error(t_map *map, t_game *game, char *msg)
 	ft_putendl_fd(msg, 2);
 	exit(1);
 }
-
 
 static int	is_closed_by_walls(t_map *map)
 {
@@ -74,7 +74,7 @@ int	map_validation(t_map *map, t_game *game)
 	while (y < map->h_map)
 	{
 		if ((int)ft_strlen(map->map[y]) != map->w_map)
-			map_error(map,game, "Map is not rectangular.");
+			map_error(map, game, "Map is not rectangular.");
 		while (x < map->w_map)
 			init_elem(y, x++, map);
 		x = 0;
@@ -96,7 +96,7 @@ t_map	*take_map(char *av, t_game *game)
 		exit_error(game, "Initializing map failed.");
 	if (!read_map(av, map, game))
 		map_error(map, game, "Reading map failed.");
-	if (!map_validation(map,game))
+	if (!map_validation(map, game))
 		map_error(map, game, "Invalid map.");
 	return (map);
 }

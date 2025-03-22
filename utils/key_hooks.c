@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   key_hooks.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mmilicev <mmilicev@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/03/22 17:36:47 by mmilicev          #+#    #+#             */
+/*   Updated: 2025/03/22 17:37:19 by mmilicev         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../include/so_long.h"
 
 int	key_hook_level2(int keycode, t_game *game)
@@ -47,6 +59,7 @@ int	key_hook_level3(int keycode, t_game *game)
 	}
 	return (0);
 }
+
 int	key_hook(int keycode, t_game *game)
 {
 	if (keycode == 65307)
