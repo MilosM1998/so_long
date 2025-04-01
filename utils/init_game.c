@@ -6,7 +6,7 @@
 /*   By: mmilicev <mmilicev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/22 17:35:58 by mmilicev          #+#    #+#             */
-/*   Updated: 2025/03/22 18:20:03 by mmilicev         ###   ########.fr       */
+/*   Updated: 2025/03/31 21:42:39 by mmilicev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,8 @@ void	free_game(t_game *game)
 		return ;
 	if (game->win && game->win)
 		mlx_destroy_window(game->mlx, game->win);
-	destroy_images(game);
+	if (game->imgs)
+		destroy_images(game);
 	if (game->mlx)
 	{
 		mlx_destroy_display(game->mlx);
@@ -60,15 +61,15 @@ void	render_text(t_game *game)
 static void	*get_image(t_game *game, char elem)
 {
 	if (elem == 'C')
-		return (game->collect_img);
+		return (game->imgs->collect_img);
 	else if (elem == 'P')
 		return (get_player_img(game));
 	else if (elem == 'E')
-		return (game->exit_img);
+		return (game->imgs->exit_img);
 	else if (elem == '1')
-		return (game->wall_img);
+		return (game->imgs->wall_img);
 	else if (elem == '0')
-		return (game->floor_img);
+		return (game->imgs->floor_img);
 	return (NULL);
 }
 
@@ -103,16 +104,11 @@ t_game	*init_game(void)
 	game->mlx = mlx_init();
 	if (!game->mlx)
 		exit_error(game, "Failed to load mlx");
+	game->imgs = malloc(sizeof(t_imgs));
+	init_imgs(game->imgs);
 	game->win = NULL;
 	game->map = NULL;
-	game->collect_img = NULL;
-	game->exit_img = NULL;
-	game->floor_img = NULL;
 	game->moves = 0;
-	game->player_right_standing = NULL;
-	game->player_left = NULL;
-	game->player_right = NULL;
-	game->player_up = NULL;
 	game->player_direction = RIGHT;
 	game->beers = 0;
 	game->total_beers = 0;

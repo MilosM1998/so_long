@@ -6,7 +6,7 @@
 /*   By: mmilicev <mmilicev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/22 17:41:40 by mmilicev          #+#    #+#             */
-/*   Updated: 2025/03/22 17:41:43 by mmilicev         ###   ########.fr       */
+/*   Updated: 2025/03/31 22:02:35 by mmilicev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,14 +76,14 @@ int	map_validation(t_map *map, t_game *game)
 		if ((int)ft_strlen(map->map[y]) != map->w_map)
 			map_error(map, game, "Map is not rectangular.");
 		while (x < map->w_map)
-			init_elem(y, x++, map);
+			init_elem(y, x++, map, game);
 		x = 0;
 		y++;
 	}
-	if (map->c_count < 1 || map->p_count != 1 || map->e_count != 1)
-		map_error(map, game, "Map does not meet requirements.");
 	if (!is_closed_by_walls(map))
 		map_error(map, game, "Map is not surrounded by walls.");
+	if (map->c_count < 1 || map->p_count != 1 || map->e_count != 1)
+		map_error(map, game, "Map does not meet requirements.");
 	return (1);
 }
 

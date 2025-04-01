@@ -6,7 +6,7 @@
 /*   By: mmilicev <mmilicev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/22 17:39:07 by mmilicev          #+#    #+#             */
-/*   Updated: 2025/03/22 19:04:37 by mmilicev         ###   ########.fr       */
+/*   Updated: 2025/03/25 18:36:41 by mmilicev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,14 +24,14 @@ static void	refresh_positions(t_game *game, int new_y, int new_x)
 void	*get_player_img(t_game *game)
 {
 	if (game->player_direction == RIGHT)
-		return (game->player_right);
+		return (game->imgs->player_right);
 	else if (game->player_direction == LEFT)
-		return (game->player_left);
+		return (game->imgs->player_left);
 	else if (game->player_direction == UP)
-		return (game->player_up);
+		return (game->imgs->player_up);
 	else if (game->player_direction == DOWN)
-		return (game->player_right_standing);
-	return (game->player_right_standing);
+		return (game->imgs->player_right_standing);
+	return (game->imgs->player_right_standing);
 }
 
 static void	write_moves(t_game *game)

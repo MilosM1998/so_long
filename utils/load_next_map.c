@@ -6,7 +6,7 @@
 /*   By: mmilicev <mmilicev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/22 17:37:36 by mmilicev          #+#    #+#             */
-/*   Updated: 2025/03/22 17:38:23 by mmilicev         ###   ########.fr       */
+/*   Updated: 2025/03/31 20:34:31 by mmilicev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,13 @@ static void	load_map(t_game *game, char *full_map)
 {
 	free_map(game->map);
 	destroy_images(game);
+	game->imgs = NULL;
+	if (game->level != 4)
+	{
+		game->imgs = malloc(sizeof(t_imgs));
+		if (!game->imgs)
+			exit_error(game, "Malloc failed to allocate imgs for next level.");
+	}
 	game->map = take_map(full_map, game);
 	if (!game->map)
 		exit_error(game, "Error while loading next map.");

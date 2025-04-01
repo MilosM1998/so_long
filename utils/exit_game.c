@@ -6,7 +6,7 @@
 /*   By: mmilicev <mmilicev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/22 17:35:17 by mmilicev          #+#    #+#             */
-/*   Updated: 2025/03/22 17:36:33 by mmilicev         ###   ########.fr       */
+/*   Updated: 2025/04/01 22:24:46 by mmilicev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ void	print_msg(int msg)
 		ft_putendl_fd("------------------------------------------------", 1);
 		ft_putendl_fd("------------------------------------------------", 1);
 		ft_putendl_fd("------------------------------------------------", 1);
-		ft_putendl_fd("-------> CONGRATULATIONS! YOU GOT DRUNK! <------", 1);
+		ft_putendl_fd("---> CONGRATULATIONS! YOU SURVIVED SOMEHOW! <---", 1);
 		ft_putendl_fd("------------------------------------------------", 1);
 		ft_putendl_fd("------------------------------------------------", 1);
 		ft_putendl_fd("------------------------------------------------", 1);
@@ -67,24 +67,26 @@ void	print_msg(int msg)
 
 void	destroy_images(t_game *game)
 {
-	if (!game || !game->mlx)
+	if (!game || !game->mlx || !game->imgs)
 		return ;
-	if (game->player_right_standing)
-		mlx_destroy_image(game->mlx, game->player_right_standing);
-	if (game->player_right)
-		mlx_destroy_image(game->mlx, game->player_right);
-	if (game->player_left)
-		mlx_destroy_image(game->mlx, game->player_left);
-	if (game->player_up)
-		mlx_destroy_image(game->mlx, game->player_up);
-	if (game->collect_img)
-		mlx_destroy_image(game->mlx, game->collect_img);
-	if (game->exit_img)
-		mlx_destroy_image(game->mlx, game->exit_img);
-	if (game->wall_img)
-		mlx_destroy_image(game->mlx, game->wall_img);
-	if (game->floor_img)
-		mlx_destroy_image(game->mlx, game->floor_img);
+	if (game->imgs->player_right_standing)
+		mlx_destroy_image(game->mlx, game->imgs->player_right_standing);
+	if (game->imgs->player_right)
+		mlx_destroy_image(game->mlx, game->imgs->player_right);
+	if (game->imgs->player_left)
+		mlx_destroy_image(game->mlx, game->imgs->player_left);
+	if (game->imgs->player_up)
+		mlx_destroy_image(game->mlx, game->imgs->player_up);
+	if (game->imgs->collect_img)
+		mlx_destroy_image(game->mlx, game->imgs->collect_img);
+	if (game->imgs->exit_img)
+		mlx_destroy_image(game->mlx, game->imgs->exit_img);
+	if (game->imgs->wall_img)
+		mlx_destroy_image(game->mlx, game->imgs->wall_img);
+	if (game->imgs->floor_img)
+		mlx_destroy_image(game->mlx, game->imgs->floor_img);
+	if (game->imgs)
+		free(game->imgs);
 }
 
 int	ft_exit(t_game *game, int which_msg)
