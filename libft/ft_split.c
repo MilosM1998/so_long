@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmilicev <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: mmilicev <mmilicev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/21 11:43:28 by mmilicev          #+#    #+#             */
-/*   Updated: 2024/09/21 11:43:31 by mmilicev         ###   ########.fr       */
+/*   Updated: 2025/04/04 12:12:46 by mmilicev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ static char	*new_str(char const *s, int start, int end)
 	return (str);
 }
 
-static void	free_mem(char **s, int j)
+void	free_mem(char **s, int j)
 {
 	while (j >= 0)
 	{

@@ -6,7 +6,7 @@
 /*   By: mmilicev <mmilicev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/22 17:38:41 by mmilicev          #+#    #+#             */
-/*   Updated: 2025/04/01 22:25:52 by mmilicev         ###   ########.fr       */
+/*   Updated: 2025/04/04 16:55:38 by mmilicev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,6 @@
 
 void	init_elem(int y, int x, t_map *map, t_game *game)
 {
-	if (map->map[y][x] == '\n')
-		map_error(map, game, "There is new line in map.");
 	if (map->map[y][x] == 'P')
 	{
 		if (map->p_count != 0)
@@ -25,14 +23,11 @@ void	init_elem(int y, int x, t_map *map, t_game *game)
 		map->p_x = x;
 	}
 	else if (map->map[y][x] == 'C')
-		check_c(map, game, y, x);
+		map->c_count++;
 	else if (map->map[y][x] == 'E')
 	{
 		if (map->e_count != 0)
 			map_error(map, game, "There is more then one exit.");
-		if (map->map[y][x - 1] == '1' && map->map[y][x + 1] == '1' && map->map[y
-			- 1][x] == '1' && map->map[y + 1][x] == '1')
-			map_error(map, game, "Exit is blocked.");
 		map->e_count++;
 	}
 	else if (map->map[y][x] != '1' && map->map[y][x] != '0')
@@ -90,7 +85,7 @@ int	read_map(char *file, t_map *map, t_game *game)
 	return (1);
 }
 
-t_map	*init_map(void)
+t_map	*init_map(int is_leveled)
 {
 	t_map	*map;
 
@@ -106,5 +101,9 @@ t_map	*init_map(void)
 	map->p_x = -1;
 	map->p_y = -1;
 	map->new_line = 0;
+	if (!is_leveled)
+		map->isleveledmap = 1;
+	else
+		map->isleveledmap = 0;
 	return (map);
 }

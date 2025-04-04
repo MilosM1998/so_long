@@ -6,7 +6,7 @@
 /*   By: mmilicev <mmilicev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/22 17:41:40 by mmilicev          #+#    #+#             */
-/*   Updated: 2025/03/31 22:02:35 by mmilicev         ###   ########.fr       */
+/*   Updated: 2025/04/04 16:29:06 by mmilicev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ static int	is_closed_by_walls(t_map *map)
 	i = 0;
 	while (i < map->h_map)
 	{
-		if (map->map[0][i] != '1' || map->map[i][map->w_map - 1] != '1')
+		if (map->map[i][0] != '1' || map->map[i][map->w_map - 1] != '1')
 			return (0);
 		i++;
 	}
@@ -80,18 +80,22 @@ int	map_validation(t_map *map, t_game *game)
 		x = 0;
 		y++;
 	}
-	if (!is_closed_by_walls(map))
-		map_error(map, game, "Map is not surrounded by walls.");
 	if (map->c_count < 1 || map->p_count != 1 || map->e_count != 1)
 		map_error(map, game, "Map does not meet requirements.");
+	if (!check_if_reachable(map))
+		map_error(map, game, "There is unreachable objects in map.");
+	if (!is_closed_by_walls(map))
+		map_error(map, game, "Map is not surrounded by walls.");
 	return (1);
 }
 
 t_map	*take_map(char *av, t_game *game)
 {
 	t_map	*map;
+	int		is_leveled;
 
-	map = init_map();
+	is_leveled = ft_strncmp(av, "./maps/map.ber", 14);
+	map = init_map(is_leveled);
 	if (!map)
 		exit_error(game, "Initializing map failed.");
 	if (!read_map(av, map, game))

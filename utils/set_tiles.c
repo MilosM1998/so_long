@@ -6,7 +6,7 @@
 /*   By: mmilicev <mmilicev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/22 17:40:45 by mmilicev          #+#    #+#             */
-/*   Updated: 2025/03/31 21:47:55 by mmilicev         ###   ########.fr       */
+/*   Updated: 2025/04/04 16:55:50 by mmilicev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ static void	set_player_imgs(t_game *game, t_imgs *imgs, int img_w, int img_h)
 	}
 }
 
-static void	set_images(t_game *game, t_imgs *imgs, t_img_paths paths)
+static void	put_imgs(t_game *game, t_imgs *imgs, t_img_paths paths)
 {
 	int	img_w;
 	int	img_h;
@@ -83,5 +83,5 @@ void	set_imgs(t_game *game)
 	}
 	if (game->level == 3)
 		paths.wall_path = "textures/map3/wall.xpm";
-	set_images(game, game->imgs, paths);
+	put_imgs(game, game->imgs, paths);
 }

@@ -6,16 +6,16 @@
 /*   By: mmilicev <mmilicev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 13:06:51 by mmilicev          #+#    #+#             */
-/*   Updated: 2024/09/23 20:10:04 by mmilicev         ###   ########.fr       */
+/*   Updated: 2025/04/04 12:13:07 by mmilicev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LIBFT_H
 # define LIBFT_H
 
+# include "./get_next_line/get_next_line.h"
 # include <stdlib.h>
 # include <unistd.h>
-# include "./get_next_line/get_next_line.h"
 
 typedef struct s_list
 {
@@ -33,6 +33,7 @@ void				ft_lstadd_front(t_list **lst, t_list *new);
 int					ft_lstsize(t_list *lst);
 void				ft_lstclear(t_list **lst, void (*del)(void *));
 void				ft_lstiter(t_list *lst, void (*f)(void *));
+void				free_mem(char **s, int j);
 
 int					ft_isalpha(int c);
 int					ft_isdigit(int c);

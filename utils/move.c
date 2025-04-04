@@ -6,7 +6,7 @@
 /*   By: mmilicev <mmilicev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/22 17:39:07 by mmilicev          #+#    #+#             */
-/*   Updated: 2025/03/25 18:36:41 by mmilicev         ###   ########.fr       */
+/*   Updated: 2025/04/04 16:53:56 by mmilicev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,17 +56,22 @@ void	move_player(t_game *game, int dx, int dy)
 	new_y = game->map->p_y + dy;
 	if (game->map->map[new_y][new_x] == '1')
 		return ;
-	write_moves(game);
 	if (game->map->map[new_y][new_x] == 'C')
 		game->beers++;
 	if (game->map->map[new_y][new_x] == 'E')
 	{
 		if (game->beers == game->map->c_count)
 		{
-			game->level++;
-			load_next_level(game);
+			if (game->map->isleveledmap)
+			{
+				game->level++;
+				load_next_level(game);
+			}
+			else
+				ft_exit(game, WIN_MSG);
 		}
 		return ;
 	}
+	write_moves(game);
 	refresh_positions(game, new_y, new_x);
 }
